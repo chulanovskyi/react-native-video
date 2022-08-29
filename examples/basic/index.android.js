@@ -99,15 +99,21 @@ class VideoPlayer extends Component {
     return (
       <View style={styles.container}>
         <TouchableOpacity
-          style={styles.fullScreen}
+          style={{ width: 200, height: 50 }}
+          onPress={() => this.video.seek(5)}
+        >
+          <Text>Jump to 5 sec</Text>
+        </TouchableOpacity>
+        <TouchableOpacity
+          style={styles.playerContainer}
           onPress={() => this.setState({ paused: !this.state.paused })}
         >
           <Video
             ref={(ref: Video) => { this.video = ref }}
-            /* For ExoPlayer */
-            /* source={{ uri: 'http://www.youtube.com/api/manifest/dash/id/bf5bb2419360daf1/source/youtube?as=fmp4_audio_clear,fmp4_sd_hd_clear&sparams=ip,ipbits,expire,source,id,as&ip=0.0.0.0&ipbits=0&expire=19000000000&signature=51AF5F39AB0CEC3E5497CD9C900EBFEAECCCB5C7.8506521BFC350652163895D4C26DEE124209AA9E&key=ik0', type: 'mpd' }} */
-            source={require('./broadchurch.mp4')}
-            style={styles.fullScreen}
+            // TODO: try the `.mp3` file, the `seek` method works
+            // source={{uri: 'https://download.samplelib.com/mp3/sample-12s.mp3'}}
+            source={{uri: 'https://filesamples.com/samples/audio/aac/sample3.aac'}}
+            style={styles.player}
             rate={this.state.rate}
             paused={this.state.paused}
             volume={this.state.volume}
@@ -161,16 +167,19 @@ class VideoPlayer extends Component {
 const styles = StyleSheet.create({
   container: {
     flex: 1,
+    height: '100%',
+    width: '100%',
     justifyContent: 'center',
     alignItems: 'center',
-    backgroundColor: 'black',
+    backgroundColor: 'white',
   },
-  fullScreen: {
-    position: 'absolute',
-    top: 0,
-    left: 0,
-    bottom: 0,
-    right: 0,
+  playerContainer: {
+    width: '100%',
+    height: 100,
+  },
+  player: {
+    width: '100%',
+    height: '100%',
   },
   controls: {
     backgroundColor: 'transparent',
